@@ -2,6 +2,7 @@ import React, {useCallback, useRef, useState} from 'react';
 import {
   ConversationMinor,
   DuplicateMinor,
+  PrintMinor,
   ViewMinor,
 } from '@shopify/polaris-icons';
 
@@ -422,13 +423,21 @@ export function DetailsPage() {
   const actualPageMarkup = (
     <Page
       breadcrumbs={[{content: 'Products', url: '/products/31'}]}
-      title="M60-A"
+      title="The North Face Ventrix Active Trail Hybrid Hoodie - Men's"
       titleMetadata={<Badge status="success">Success badge</Badge>}
       // additionalMetaData="May 8, 2020 at 7:31 am from Developer Tools (via import)"
       secondaryActions={[
         {
+          content: 'Print',
+          icon: PrintMinor,
+        },
+        {
           content: 'View',
           icon: ViewMinor,
+        },
+        {
+          content: 'Duplicate',
+          icon: DuplicateMinor,
         },
       ]}
       actionGroups={[

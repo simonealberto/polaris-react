@@ -22,15 +22,20 @@ interface Props {
 
 export function Actions({actions = [], groups = []}: Props) {
   const {newDesignLanguage} = useFeatures();
+  const [actionWidths, setActionWidths] = useState<number[]>([]);
   const [activeMenuGroup, setActiveMenuGroup] = useState<string | undefined>(
     undefined,
   );
-
+  const handleOffsetWidth = useCallback(
+    (width: number) =>
+      setActionWidths((actionWidths) => [...actionWidths, width]),
+    [],
+  );
   const handleMenuGroupToggle = useCallback(
     (group: string) => setActiveMenuGroup(activeMenuGroup ? undefined : group),
     [activeMenuGroup],
   );
-
+  console.log({actionWidths});
   const handleMenuGroupClose = useCallback(
     () => setActiveMenuGroup(undefined),
     [],
@@ -58,7 +63,12 @@ export function Actions({actions = [], groups = []}: Props) {
 
     const {content, onAction, ...rest} = action;
     return newDesignLanguage ? (
-      <SecondaryAction key={index} onClick={onAction} {...rest}>
+      <SecondaryAction
+        key={index}
+        onClick={onAction}
+        {...rest}
+        getOffsetWidth={handleOffsetWidth}
+      >
         {content}
       </SecondaryAction>
     ) : (
@@ -74,7 +84,7 @@ export function Actions({actions = [], groups = []}: Props) {
   return (
     <div className={styles.ActionsLayout}>
       {newDesignLanguage ? (
-        <ButtonGroup>{actionMarkup}</ButtonGroup>
+        <ButtonGroup noWrap={newDesignLanguage}>{actionMarkup}</ButtonGroup>
       ) : (
         actionMarkup
       )}
